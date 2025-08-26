@@ -14,8 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!cookiePopup || !acceptBtn || !declineBtn) return;
 
-    if (!localStorage.getItem("cookieChoice")) {
-      setTimeout(function () {
+    let cookieShowTimerId = null;
+    const cookieChoice = localStorage.getItem("cookieChoice");
+    if (!cookieChoice) {
+      cookieShowTimerId = setTimeout(function () {
         cookiePopup.classList.add("show");
       }, 5000);
     }
@@ -26,22 +28,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     declineBtn.addEventListener("click", function () {
-      localStorage.removeItem("cookieChoice");
+      localStorage.setItem("cookieChoice", "declined");
 
-      const cookies = document.cookie.split(";");
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i];
-        const eqPos = cookie.indexOf("=");
-        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie =
-          name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+      if (cookieShowTimerId) {
+        clearTimeout(cookieShowTimerId);
+        cookieShowTimerId = null;
       }
 
       cookiePopup.classList.remove("show");
-
-      setTimeout(function () {
-        window.location.reload();
-      }, 500);
     });
   }
 

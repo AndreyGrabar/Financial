@@ -48,6 +48,12 @@ p {
   font-size: 1.1rem;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 .btn-primary,
 .btn-secondary {
   display: inline-block;
@@ -83,6 +89,12 @@ p {
   background: #3498db;
   color: white;
   transform: translateY(-2px);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: 3px solid #1f5f8b;
+  outline-offset: 2px;
 }
 
 .cookie-popup {
@@ -179,6 +191,11 @@ p {
 
 .nav-menu a:hover::after {
   width: 100%;
+}
+
+.nav-menu a:focus-visible {
+  outline: 2px solid #3498db;
+  outline-offset: 3px;
 }
 
 .mobile-menu-toggle {
@@ -539,8 +556,6 @@ p {
 .faq-item p {
   padding: 0 20px 20px;
   color: #666;
-}
-.faq-item p {
   display: none;
 }
 
@@ -794,4 +809,20 @@ html {
 .modal-actions {
   display: flex;
   justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero-slide {
+    transition: none;
+  }
+
+  .loading {
+    transform: none;
+  }
 }
